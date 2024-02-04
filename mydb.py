@@ -11,7 +11,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String
 from uuid import UUID
 from database import engine
-#from database import SessionLocal
+from database import SessionLocal
 
 # Create the FastAPI app
 app = FastAPI()
