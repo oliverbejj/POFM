@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Waste Management</title>
+</head>
+<body >
+
+
+    <h1 >Welcome to your <b>Waste Management</b> Web-App</h1>
+    <div>
+        <table>
+            <tr>
+                
+                    <th id="No_border" >
+                        <label >Product name: </label>
+                        <br>
+                        <input type="text" id="product" name="product_3 " placeholder="Exemple: Bottle of Water..." required ></th>
+                    </th>
+                    <th id="No_border">
+                        <label>Choose the material of your product:</label>
+                        <input list="description_product" name="description"  id="description" placeholder="Select" required>
+                <datalist id="description_product" class="divider"> 
+                        <option value="Glass"></option>
+                        <option value="Aluminium"></option>
+                        <option value="Foils and laminates"></option>
+                        <option value="Tinplate"></option>
+                        <option value="Tin-Free steel"></option>
+                        <option value="Paper"></option>
+                        <option value="Paperboards"></option>
+                        <option value="Plastics"></option>
+                        
+                </datalist>
+                    </th>
+                    <th id="No_border">
+                        <label> Size of your product: </label>
+                        <br>
+                        <input list="Size" name="Size_product" id="Size_product"  placeholder="Select" required>
+                <datalist id="Size">
+                    <option value="Small"></option>
+                    <option value="Medium"></option>
+                    <option value="Large"></option>
+                </datalist>
+                    </th>
+                    <th id="No_border">
+                        <div id="button">
+                            <button type="submit" id="Submition" class="btn btn-success "> Add Product</button>
+        
+                    </div>
+                    </th>
+                    
+                </tr>
+            </table>
+                
+                
+    </div>
+    
+    
+    <div>
+        <table id="MyTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th >Product Name </th>
+                    <th>Description</th>
+                    <th> Size</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            
+            <tr>
+                <td id="First_row"> </td>
+                <td id="First_row"> </td>
+                <td id="First_row"> </td>
+                <td id="First_row"> </td>
+            </tr>
+
+        </table>
+    </div>
+   
+    <div>
+        <p class="Bold">
+            Your total score is : <span id="total" class="Bold">{{value}}</span>
+        </p>
+    </div>
+    <div>
+        <p id="result" style="display: none; color: green;">Good job! Your Purchases are environmentally friendly.</p>
+    </div>
+    <script src="../static/JS.js"></script>
+    
+</body>
+</html>
