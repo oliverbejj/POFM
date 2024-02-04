@@ -7,6 +7,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, Request, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -25,7 +26,7 @@ app.add_middleware(
     allow_headers=["*"],   # Adjust this to allow specific headers
 )
 
-
+app.mount("/static", StaticFiles(directory="static"), name="static")
 my_posts=[]
 
 @app.post("/posts")
