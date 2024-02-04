@@ -1,12 +1,12 @@
 h1{
-    color: DarkSlateGray;
+    color: white;
     text-align: center;
 }
 table{
     width: 100%;
 }
 th{
-    color: DarkSlateGray;
+    color: white;
     width: 25%;
     text-align: center;
     border-bottom: 1px solid black;
@@ -16,6 +16,9 @@ th{
 }
 #product{
     width: 60%;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+
 }
 div{
     padding: 14px;
@@ -45,14 +48,17 @@ td{
 }
 
 body{
-    background-color:beige;
+    background-color:black;
 }
 label{
-    color: DarkSlateGray;
+    color: white;
 }
 .Bold {
     font-weight: bold;
 }
 p{
-    color: DarkSlateGray;
+    color: white;
+}
+#result{
+    font-size: 20px;
 }
