@@ -24,4 +24,9 @@ async def user_input(post:Post):
     post_dict['id']=randrange(0,1000000)
     my_posts.append(post_dict)
     return {"data":"new post"}
-# name str, material str, Size str
+
+@app.post("/api/endpoint")
+async def receive_data(data: dict):
+    print("Received data:", data)
+    return {"message": "Data received successfully"}
+
