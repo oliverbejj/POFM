@@ -13,7 +13,7 @@ from sqlalchemy import Column, String
 # Create the FastAPI app
 app = FastAPI()
 
-conn = sqlite3.connect('waste.db')
+conn = sqlite3.connect('waste.db', check_same_thread=False)
 
 # Pydantic data model for expected values 
 class Item(BaseModel):
@@ -26,6 +26,7 @@ SQLALCHEMY_DATABASE_URL = "sqlite:///./waste.db"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+session=SessionLocal()
 
 Base = sqlalchemy.orm.declarative_base()
 Base.metadata.create_all(bind=engine)
@@ -46,86 +47,106 @@ conn.execute('''CREATE TABLE IF NOT EXISTS numbers(
              ''')
 
 class Product(Base):
+    global product
+    global material
+    global size
     __tablename__ = "products"
     id = Column(Integer, primary_key=True, index=True)
     product = Column(String, index=True)
     material = Column(String, index=True)
     size = Column(String, index=True)
-
+    
+result = session.query(Product).all()
+def r():
+    data0 = [json.loads(item.product) for item in result]
+    data1 = [json.loads(item.material) for item in result]
+    data2 = [json.loads(item.size) for item in result]
+    return [data0, data1, data2]
 items = 0;
-number = 0;
 
 
 def check ():
-	c = conn.cursor()
-	c.execute ("SELECT * FROM products")
-	products = c.fetchall()
+    number=0
+    c = conn.cursor()
+    c.execute ("SELECT * FROM products")
+    products = c.fetchall()
 
-	for num in products:
-		if (products[2] == "Plastics"):
-			if (products[3] == "Medium"):
-				number += 4
-			elif (products[3] == "Large"):
-				number += 4*(1.5)
-			elif (products[3] == "Small"):
-				number += 4*(0.5)
+    
 
-		elif (products[2] == "Glass"):
-			if (products[3] == "Small"):
-				number += 0.5
-			elif (products[3] == "Medium"):
-				number += 1
-			elif (products[3] == "Large"):
-				number += 1.5
 
-		elif (products[2] == "Paper"):
-			if (products[3] == "Small"):
-				number += 3*0.5
-			elif (products[3] == "Medium"):
-				number += 3
-			elif (products[3] == "Large"):
-				number += 3*1.5
+def getnumber(my_posts):
+    number=0
+    c = conn.cursor()
+    c.execute ("SELECT * FROM products")
+    products = my_posts
 
-		elif (products[2] == "Aluminium"):
-			if (products[3] == "Small"):
-				number += 0.5
-			elif (products[3] == "Medium"):
-				number += 1
-			elif (products[3] == "Large"):
-				number += 1.5
 
-		elif (products[2] == "Foils and laminates"):
-			if (products[3] == "Small"):
-				number += 0.5
-			elif (products[3] == "Medium"):
-				number += 1
-			elif (products[3] == "Large"):
-				number += 1.5
+    for product in products:
+        if (product["material"] == "Plastics"):
+            if (product['size'] == "Medium"):
+                number += 4
+            elif (product['size'] == "Large"):
+                number += 4*(1.5)
+            elif (product['size'] == "Small"):
+                number += 4*(0.5)
 
-		elif (products[2] == "Tinplate"):
-			if (products[3] == "Small"):
-				number += 0.5*2
-			elif (products[3] == "Medium"):
-				number += 1*2
-			elif (products[3] == "Large"):
-				number += 1.5*2
+        elif (product["material"] == "Glass"):
+            if (product['size'] == "Small"):
+                number += 0.5
+            elif (product['size'] == "Medium"):
+                number += 1
+            elif (product['size'] == "Large"):
+                number += 1.5
 
-		elif (products[2] == "Tin-Free Steel"):
-			if (products[3] == "Small"):
-				number += 0.5*3
-			elif (products[3] == "Medium"):
-				number += 1*3
-			elif (products[3] == "Large"):
-				number += 1.5*3
+        elif (product["material"] == "Paper"):
+            if (product['size'] == "Small"):
+                number += 3*0.5
+            elif (product['size'] == "Medium"):
+                number += 3
+            elif (product['size'] == "Large"):
+                number += 3*1.5
 
-		elif (products[2] == "Paperboards"):
-			if (products[3] == "Small"):
-				number += 0.5*4
-			elif (products[3] == "Medium"):
-				number += 1*4
-			elif (products[3] == "Large"):
-				number += 1.5*4
+        elif (product["material"] == "Aluminium"):
+            if (product['size'] == "Small"):
+                number += 0.5
+            elif (product['size'] == "Medium"):
+                number += 1
+            elif (product['size'] == "Large"):
+                number += 1.5
 
+        elif (product["material"] == "Foils and laminates"):
+            if (product['size'] == "Small"):
+                number += 0.5
+            elif (product['size'] == "Medium"):
+                number += 1
+            elif (product['size'] == "Large"):
+                number += 1.5
+
+        elif (product["material"] == "Tinplate"):
+            if (product['size'] == "Small"):
+                number += 0.5*2
+            elif (product['size'] == "Medium"):
+                number += 1*2
+            elif (product['size'] == "Large"):
+                number += 1.5*2
+
+        elif (product["material"] == "Tin-Free Steel"):
+            if (product['size'] == "Small"):
+                number += 0.5*3
+            elif (product['size'] == "Medium"):
+                number += 1*3
+            elif (product['size'] == "Large"):
+                number += 1.5*3
+
+        elif (product["material"] == "Paperboards"):
+            if (product['size'] == "Small"):
+                number += 0.5*4
+            elif (product['size'] == "Medium"):
+                number += 1*4
+            elif (product['size'] == "Large"):
+                number += 1.5*4
+
+    return number
 
 def insert_data_into_sqlite(data):
     for key, product, material, size in data.items():
@@ -184,7 +205,7 @@ def get_db():
 conn.commit()
 
 #Close our connection
-conn.close()
+#conn.close()
 
 
 if __name__ == "__main__":
@@ -192,3 +213,4 @@ if __name__ == "__main__":
  
     # Run the FastAPI application using Uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
+    

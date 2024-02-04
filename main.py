@@ -42,14 +42,25 @@ def get_posts():
 
 @app.get("/")
 def read_value(request: Request):
-    value = database.number
+    value = mydb.getnumber(my_posts)
     return templates.TemplateResponse("index.html", {"request" : request, "value":value})
 
 
 @app.get("/load")
 def loader():
-    
-    return {"message1":"peep"}
+    global f
+    po=mydb.r()
+    n=po[0]
+    m=po[1]
+    s=po[2]
+    f={}
+    for i in range(len(n)):
+        f[i]=[]
+        f[i].append(n)
+        f[i].append(m)
+        f[i].append(s)
+    print(f)
+    return {"message1":f}
 
 
 
