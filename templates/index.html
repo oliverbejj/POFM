@@ -14,44 +14,48 @@
     <div>
         <table>
             <tr>
-                <th id="No_border" class="">
-                    <label >Product name: </label>
-                    <br>
-                    <input type="text" id="product" name="product_3 " placeholder="Exemple: Bottle of Water..." required ></th>
-                </th>
-                <th id="No_border">
-                    <label>Choose the material of your product:</label>
-                    <input list="description_product" name="description"  id="description" required>
-            <datalist id="description_product" class="divider"> 
-                    <option value="Glass"></option>
-                    <option value="Aluminium"></option>
-                    <option value="Foils and laminates"></option>
-                    <option value="Tinplate"></option>
-                    <option value="Tin-Free steel"></option>
-                    <option value="Paper"></option>
-                    <option value="Paperboards"></option>
-                    <option value="Plastics"></option>
-                    
-            </datalist>
-                </th>
-                <th id="No_border">
-                    <label> Size of your product: </label>
-                    <br>
-                    <input list="Size" name="Size_product" id="Size_product" required>
-            <datalist id="Size">
-                <option value="Small"></option>
-                <option value="Medium"></option>
-                <option value="Large"></option>
-            </datalist>
-                </th>
-                <th id="No_border">
-                    <div id="button">
-                        <button type="submit" id="Submition" class="btn btn-success "> Add Product</button>
-                </div>
-                </th>
                 
-            </tr>
-        </table>
+                    <th id="No_border" >
+                        <label >Product name: </label>
+                        <br>
+                        <input type="text" id="product" name="product_3 " placeholder="Exemple: Bottle of Water..." required ></th>
+                    </th>
+                    <th id="No_border">
+                        <label>Choose the material of your product:</label>
+                        <input list="description_product" name="description"  id="description" placeholder="Select" required>
+                <datalist id="description_product" class="divider"> 
+                        <option value="Glass"></option>
+                        <option value="Aluminium"></option>
+                        <option value="Foils and laminates"></option>
+                        <option value="Tinplate"></option>
+                        <option value="Tin-Free steel"></option>
+                        <option value="Paper"></option>
+                        <option value="Paperboards"></option>
+                        <option value="Plastics"></option>
+                        
+                </datalist>
+                    </th>
+                    <th id="No_border">
+                        <label> Size of your product: </label>
+                        <br>
+                        <input list="Size" name="Size_product" id="Size_product"  placeholder="Select" required>
+                <datalist id="Size">
+                    <option value="Small"></option>
+                    <option value="Medium"></option>
+                    <option value="Large"></option>
+                </datalist>
+                    </th>
+                    <th id="No_border">
+                        <div id="button">
+                            <button type="submit" id="Submition" class="btn btn-success "> Add Product</button>
+        
+                    </div>
+                    </th>
+                    
+                </tr>
+            </table>
+                
+                
     </div>
     
     
@@ -77,10 +81,8 @@
     </div>
    
     <div>
-        <p class="bold">
-            Your total score is : <span id="total" class="bold">
-                {{value}}
-            </span>
+        <p class="Bold">
+            Your total score is : <span id="total" class="Bold"></span>
         </p>
     </div>
     <div>

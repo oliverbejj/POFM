@@ -1,10 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Depends
 from fastapi.params import Body
 from pydantic import BaseModel
 from random import randrange
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI, Request, Depends
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
 class Post(BaseModel):
     name: str
@@ -20,6 +25,7 @@ app.add_middleware(
     allow_headers=["*"],   # Adjust this to allow specific headers
 )
 
+
 my_posts=[]
 
 @app.post("/posts")
@@ -30,6 +36,12 @@ def create_post(item: Post):
 @app.get("/posts")
 def get_posts():
     return my_posts
+
+@app.get("/")
+def read_value(request: Request):
+    value = "hello"
+    return templates.TemplateResponse("index.html", {"request" : request, "value":value})
+
 
 
 
