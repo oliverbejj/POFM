@@ -8,6 +8,21 @@ submition.addEventListener("click", function(event) {
     var Product = document.getElementById("product").value;
     var Description = document.getElementById("description").value;
     var Size = document.getElementById("Size_product").value;
+    adder.classList.add("success");
+    adder.classList.add("Bold");
+    if(total<150){
+    Green_displayer.style.display="block";
+}
+else{
+    Green_displayer.style.display="block";
+    Green_displayer.style.color= "red";
+    Green_displayer.innerHTML="Poor job! Your Purchases are environmentally harmful."
+
+}
+    document.getElementById("product").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("Size_product").value = "";
+
     fetch("http://127.0.0.1:8000/posts", {
         method: "POST",
         body: JSON.stringify({
