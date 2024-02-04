@@ -9,6 +9,9 @@ from sqlalchemy.orm import sessionmaker
 import sqlalchemy.orm
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String
+from uuid import UUID
+from database import engine
+#from database import SessionLocal
 
 # Create the FastAPI app
 app = FastAPI()
@@ -30,6 +33,13 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = sqlalchemy.orm.declarative_base()
 Base.metadata.create_all(bind=engine)
 
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally: 
+        db.close()
 
 conn.execute('''CREATE TABLE IF NOT EXISTS products(
       	id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,12 +55,22 @@ conn.execute('''CREATE TABLE IF NOT EXISTS numbers(
 ) 
              ''')
 
+
+
 class Product(Base):
-    __tablename__ = "products"
-    id = Column(Integer, primary_key=True, index=True)
-    product = Column(String, index=True)
-    material = Column(String, index=True)
-    size = Column(String, index=True)
+	global id
+	global product
+	global material
+	global size
+	__tablename__ = "products"
+	id = Column(Integer, primary_key=True, index=True)
+	product = Column(String, index=True)
+	material = Column(String, index=True)
+	size = Column(String, index=True)
+
+def r ():
+	return [product, material, size]
+
 
 items = 0;
 number = 0;
@@ -171,13 +191,6 @@ def add_numbers(db: SessionLocal()):
     return {"result": result}
 
 
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally: 
-        db.close()
 
 
 # Commit our command
