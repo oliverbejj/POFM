@@ -8,9 +8,11 @@ from fastapi import FastAPI, Request, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+import mydb
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+
 
 class Post(BaseModel):
     name: str
@@ -40,8 +42,15 @@ def get_posts():
 
 @app.get("/")
 def read_value(request: Request):
-    value = "hello"
+    value = database.number
     return templates.TemplateResponse("index.html", {"request" : request, "value":value})
+
+
+@app.get("/load")
+def loader():
+    
+    return {"message1":"peep"}
+
 
 
 
