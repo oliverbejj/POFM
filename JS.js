@@ -8,6 +8,23 @@ submition.addEventListener("click", function(event) {
     var Product = document.getElementById("product").value;
     var Description = document.getElementById("description").value;
     var Size = document.getElementById("Size_product").value;
+    fetch("http://127.0.0.1:8000/posts", {
+        method: "POST",
+        body: JSON.stringify({
+
+        "name": Product,
+        "material": Description,
+        "size": Size
+      }),
+  headers: {
+    "Content-type": "application/json; charset=UTF-8"
+  }
+});
+
+
+
+
+
     var adder = document.getElementById("MyTable").insertRow(counter);
     adder.classList.add("success");
     if(!Product || !Description || !Size){
